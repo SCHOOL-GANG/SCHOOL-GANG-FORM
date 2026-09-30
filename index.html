@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Membership Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 50px;
+        }
+        .form-card {
+            background-color: #e3d7e5;
+            width: 350px;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #c8b8cc;
+            box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.15);
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            font-size: 20px;
+        }
+        .field-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #222;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #a69bb0;
+            background-color: #4a75a0;
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .options-container {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .options-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 5px;
+        }
+        .submit-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="submit"] {
+            background-color: #d8c3d8;
+            color: #5a2d5a;
+            border: 2px solid #a68ba6;
+            padding: 6px 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #thanks-message {
+            display: none;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #5a2d5a;
+            padding: 20px 0;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-card">
+    <!-- Note: User needs to change 'YOUR_EMAIL@EXAMPLE.COM' inside the code file -->
+    <form id="membershipForm" action="https://formsubmit.co/YOUR_EMAIL@EXAMPLE.COM" method="POST" onsubmit="sendData(event)">
+        <h2>Membership Form</h2>
+        
+        <div class="field-group">
+            <label for="candidate-name">Name of the candidate:</label>
+            <input type="text" id="candidate-name" name="Name" required>
+        </div>
+
+        <div class="field-group">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="Address" required>
+        </div>
+
+        <div class="field-group">
+            <label for="contact">Contact No.:</label>
+            <input type="text" id="contact" name="Contact_No" required>
+        </div>
+
+        <div class="options-container">
+            <label>Gender:</label>
+            <div class="options-row">
+                <label><input type="radio" name="Gender" value="Male" checked> Male</label>
+                <label><input type="radio" name="Gender" value="Female"> Female</label>
+            </div>
+        </div>
+
+        <div class="options-container">
+            <label>Facilities Opted:</label>
+            <div class="options-row">
+                <label><input type="checkbox" name="Facilities[]" value="Restaurant"> Restaurant</label>
+                <label><input type="checkbox" name="Facilities[]" value="Library"> Library</label>
+                <label><input type="checkbox" name="Facilities[]" value="Gym"> Gym</label>
+                <label><input type="checkbox" name="Facilities[]" value="Sports"> Sports</label>
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+
+    <div id="thanks-message">
+        THANKS FOR FILLING THE FORM OUR TEAM WILL SEE THIS SOON
+    </div>
+</div>
+
+<script>
+function sendData(event) {
+    event.preventDefault();
+    
+    var form = document.getElementById('membershipForm');
+    var formData = new FormData(form);
+
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        form.style.display = 'none';
+        document.getElementById('thanks-message').style.display = 'block';
+    }).catch(error => {
+        alert('Something went wrong. Please try again.');
+    });
+}
+</script>
+
+</body>
+</html>
